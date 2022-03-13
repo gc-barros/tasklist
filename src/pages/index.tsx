@@ -28,8 +28,7 @@ const Home: NextPage = () => {
 
           <ul className={styles.tasksList}>
             <Tarefa />
-            <Tarefa />
-            <Tarefa />
+  
 
           </ul>
 

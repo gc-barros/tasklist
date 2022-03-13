@@ -1,7 +1,12 @@
 @import './variaveis';
+@import './breakpoints';
 
 .container {
   display: flex;
+
+  @media screen and (max-width: $mobile) {
+    flex-direction: column;
+  }
 }
 
 .main {
@@ -11,7 +16,11 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  padding: 32px 24px;
+  padding: 24px 16px;
+
+  @media screen and (max-width: $mobile) {
+    min-height: auto;
+  }
 }
 
 .tasksContainer {
@@ -22,6 +31,10 @@
   width: 100%;
   max-width: 583px;
   margin: auto;
+
+  @media screen and (max-width: $mobile) {
+    max-width: none;
+  }
 }
 
 .searchInput {
@@ -35,6 +48,10 @@
   max-width: 583px;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: $mobile) {
+    max-width: none;
+  }
 
   input {
     background-color: transparent;
@@ -53,6 +70,10 @@
   text-align: left;
   width: 100%;
   max-width: 583px;
+
+  @media screen and (max-width: $mobile) {
+    max-width: none;
+  }
 }
 
 .tasksList {
@@ -61,6 +82,10 @@
   width: 100%;
   max-width: 583px;
   gap: 21px;
+
+  @media screen and (max-width: $mobile) {
+    max-width: none;
+  }
 }
 
 .buttonNewTask {

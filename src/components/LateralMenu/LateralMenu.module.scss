@@ -1,9 +1,63 @@
 @import '../../styles/variaveis';
+@import '../../styles/breakpoints';
+
+.hamburgerMenu {
+  display: none;
+
+  @media screen and (max-width: $mobile) {
+    display: block;
+    height: fit-content;
+    background-color: transparent;
+    border: 0;
+    margin: 24px auto 0 16px;
+    padding: 0;
+  }
+}
 
 .lateralMenu {
   background-color: $blue;
   width: 192px;
   padding: 32px 24px;
+
+  @media screen and (max-width: $mobile) {
+    display: none;
+
+    &.lateralMenu__ativo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: block;
+      z-index: 3;
+      height: 100vh;
+      animation: deslizar .4s forwards;
+    }
+  }
+}
+
+@keyframes deslizar {
+  from {
+    left: -192px;
+  }
+  to {
+    left: 0;
+  }
+}
+
+.overlay {
+  display: none;
+  
+  &.overlay__ativo {
+    display: block;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px); 
+    z-index: 2;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
 }
 
 .userInfo {
@@ -35,7 +89,7 @@
   ul {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: 14px;
     margin: 0;
@@ -46,15 +100,23 @@
 .item {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   color: $white;
   font-size: 14px;
   padding: 8px 24px;
-  background-color: $dark-blue;
   height: 40px;
   border-radius: 10px;
   width: 100%;
   cursor: pointer;
+  transition: .3s ease;
+
+  &:hover {
+    background-color: #003ace;
+  }
+  
+  &.item__ativo {
+    background-color: $dark-blue;
+  }
   
   .iconContainer {
     margin-right: 24px;

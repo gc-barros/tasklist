@@ -1,0 +1,60 @@
+@import '../../styles/variaveis';
+
+.taskBox {
+  display: flex;
+  flex-direction: column;
+  background-color: $blue;
+  width: 100%;
+  padding: 24px;
+  color: $white;
+  border-radius: 10px;
+  position: relative;
+
+  .taskName {
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .taskDescription {
+    font-weight: 400;
+    font-size: 18px;
+  }
+
+  .taskStatus {
+    padding: 8px 12px;
+    background-color: $white;
+    width: 140px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    color: $black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    cursor: pointer;
+
+    svg {
+      margin-right: 4px;
+    }
+  }
+
+  button {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    color: $white;
+  }
+}
+
+.menuPopover {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+
+  svg {
+    margin-right: 6px;
+  }
+}

@@ -45,7 +45,7 @@ const LateralMenu = () => {
         <div className={styles.userInfo}>
           <Avatar sx={{ bgcolor: "#FFF", color: "#00F" }}>{nameF[0].toUpperCase() + lastNameF[0].toUpperCase()}</Avatar>
           <div className={styles.userDados}>
-            <span>{`${nameF} ${lastNameF}`}</span>
+            <span>{`${nameF} ${lastNameF[0]}.`}</span>
             <span>{roleF}</span>
           </div>
         </div>

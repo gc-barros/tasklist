@@ -34,12 +34,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 24px;
-    cursor: pointer;
     transition: .4s ease;
-
-    &:hover {
-      transform: translateY(-4px);
-    }
 
     svg {
       margin-right: 4px;

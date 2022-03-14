@@ -4,12 +4,35 @@ import LateralMenu from "../../components/LateralMenu";
 import styles from "./Tasklist.module.scss";
 import { MdSearch, MdAdd } from "react-icons/md";
 import Task from "../../components/Task";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalCreateTask from "../../components/ModalCreateTask";
 import { useRouter } from "next/router";
+import ITask from "../../types/task";
+import api from "../../services/api";
 
 const Tasklist: NextPage = () => {
   const [showModalCreate, setShowModalCreate] = useState(false);
+  const [myTasks, setMyTasks] = useState<ITask[]>([]);
+
+  function addTask(name: string, description: string) {
+    api.post("/api/tasks", { title: name, description: description })
+    .then(response => setMyTasks(previousList => [...previousList, response.data]))
+    .catch(err => console.error("Erro: ", err));
+  }
+
+  function deleteTask(id: string) {
+    setMyTasks((previousList) =>
+      previousList.filter((task) => task.guid !== id)
+    );
+    api.delete(`/api/tasks/${id}`).then((response) => console.log(response));
+  }
+
+  useEffect(() => {
+    api
+      .get("/api/tasks")
+      .then((response) => setMyTasks(response.data))
+      .catch((err) => console.error("Erro: ", err));
+  }, [setMyTasks]);
 
   return (
     <div className={styles.container}>
@@ -23,7 +46,7 @@ const Tasklist: NextPage = () => {
       </Head>
 
       {showModalCreate && (
-        <ModalCreateTask fecharModal={() => setShowModalCreate(false)} />
+        <ModalCreateTask fecharModal={() => setShowModalCreate(false)} addTask={addTask} />
       )}
       <LateralMenu />
 
@@ -37,7 +60,9 @@ const Tasklist: NextPage = () => {
           <h1 className={styles.title}>Tarefas</h1>
 
           <ul className={styles.tasksList}>
-            <Task />
+            {myTasks.map((task) => (
+              <Task task={task} key={task.guid} deleteTask={deleteTask} />
+            ))}
           </ul>
 
           <button

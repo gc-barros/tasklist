@@ -1,6 +1,6 @@
 import styles from './lateralMenu.module.scss';
 import Image from "next/image";
-import { MdInfo, MdOutlineMenu } from "react-icons/md";
+import { MdInfo, MdLogout, MdOutlineMenu } from "react-icons/md";
 import { Avatar } from "@mui/material";
 import { useState } from 'react';
 import Overlay from '../Overlay';
@@ -43,7 +43,9 @@ const LateralMenu = () => {
         id="lateralMenu"
       >
         <div className={styles.userInfo}>
-          <Avatar sx={{ bgcolor: "#FFF", color: "#00F" }}>{nameF[0].toUpperCase() + lastNameF[0].toUpperCase()}</Avatar>
+          <Avatar sx={{ bgcolor: "#FFF", color: "#00F" }}>
+            {nameF[0].toUpperCase() + lastNameF[0].toUpperCase()}
+          </Avatar>
           <div className={styles.userDados}>
             <span>{`${nameF} ${lastNameF[0]}.`}</span>
             <span>{roleF}</span>
@@ -67,6 +69,12 @@ const LateralMenu = () => {
                 <MdInfo color="#FFF" size="28" />
               </div>
               Sobre
+            </li>
+            <li className={styles.item} onClick={() => router.push("/")}>
+              <div className={styles.iconContainer}>
+                <MdLogout color="#FFF" size="28" />
+              </div>
+              Sair
             </li>
           </ul>
         </nav>

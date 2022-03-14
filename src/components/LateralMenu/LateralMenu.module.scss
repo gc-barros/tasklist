@@ -78,7 +78,6 @@
 .item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   color: $white;
   font-size: 14px;
   padding: 8px 24px;
@@ -86,6 +85,7 @@
   border-radius: 10px;
   cursor: pointer;
   transition: .3s ease;
+  width: 100%;
 
   &:hover {
     background-color: #003ace;

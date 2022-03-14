@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import Lottie from "lottie-react";
@@ -9,8 +9,9 @@ import { Button, TextField } from "@mui/material";
 import { MdChecklist } from "react-icons/md";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
-const Home: NextPage = () => {
+const Home: NextPage = ({author}: any) => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [role, setRole] = useState("");
@@ -39,7 +40,6 @@ const Home: NextPage = () => {
                 lastName.toLowerCase()
               )}&role=${encodeURIComponent(role.toLowerCase())}`
             );
-            console.log(name, lastName, role);
           }}
         >
           <div className={styles.intro}>
@@ -101,7 +101,7 @@ const Home: NextPage = () => {
             target="_blank"
             rel="noreferrer"
           >
-            Gabriel Barros
+            {author}
           </a>
           .
         </span>
@@ -110,4 +110,13 @@ const Home: NextPage = () => {
   );
 };
 
+export const getStaticProps: GetStaticProps = async (context) => {
+  return {
+    props: {
+      author: "Gabriel C. Barros",
+    },
+  };
+};
+
 export default Home;
+

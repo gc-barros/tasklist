@@ -9,9 +9,14 @@ import {
 import { IconButton, MenuItem, Menu } from "@mui/material";
 import { useState } from "react";
 import ModalEditTask from "../ModalEditTask";
+import ITask from "../../types/task";
 
-const Task = () => {
-  const [status, setStatus] = useState("Concluída");
+type Props = {
+  task: ITask;
+  deleteTask: (id: string) => void;
+}
+
+const Task = ({task, deleteTask}: Props) => {
   const [showModalEdit, setShowModalEdit] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -29,22 +34,19 @@ const Task = () => {
         <ModalEditTask fecharModal={() => setShowModalEdit(false)} />
       )}
       <li className={styles.taskBox}>
-        <span className={styles.taskName}>Nome</span>
-        <span className={styles.taskDescription}>Descrição da tarefa</span>
-        <div
-          className={styles.taskStatus}
-          onClick={() => {
-            status === "Concluída"
-              ? setStatus("Em progresso")
-              : setStatus("Concluída");
-          }}
-        >
-          {status === "Concluída" ? (
+        <span className={styles.taskName}>{task.title}</span>
+        <span className={styles.taskDescription}>{task.description}</span>
+        <div className={styles.taskStatus}>
+          {task.situation === "completed" ? (
             <MdCheck size={20} />
           ) : (
             <MdOutlineAccessTime size={20} />
           )}
-          {status}
+          {task.situation === "completed" ? (
+            "Concluída"
+          ) : (
+            "Em progresso"
+          )}
         </div>
 
         <IconButton
@@ -82,7 +84,10 @@ const Task = () => {
             <MdModeEdit size={20} />
             Atualizar tarefa
           </MenuItem>
-          <MenuItem onClick={handleClose} className={styles.menuPopover}>
+          <MenuItem onClick={() => {
+            handleClose();
+            deleteTask(task.guid);
+          }} className={styles.menuPopover}>
             <MdDelete size={20} />
             Remover tarefa
           </MenuItem>

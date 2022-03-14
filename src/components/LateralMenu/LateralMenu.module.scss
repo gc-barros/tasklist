@@ -20,26 +20,17 @@
   padding: 32px 24px;
 
   @media screen and (max-width: $mobile) {
-    display: none;
-
-    &.lateralMenu__ativo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      display: block;
-      z-index: 3;
-      height: 100vh;
-      animation: deslizar .4s forwards;
-    }
-  }
-}
-
-@keyframes deslizar {
-  from {
+    position: fixed;
+    top: 0;
+    transition: .4s;
     left: -192px;
-  }
-  to {
-    left: 0;
+    z-index: 3;
+    height: 100vh;
+    
+    &.lateralMenu__ativo {
+      left: 0;
+      transition: .4s;
+    }
   }
 }
 
@@ -89,7 +80,6 @@
   padding: 8px 24px;
   height: 40px;
   border-radius: 10px;
-  width: 100%;
   cursor: pointer;
   transition: .3s ease;
 

@@ -102,5 +102,10 @@
   cursor: pointer;
   margin-top: 32px;
   align-self: flex-end;
+  transition: .4s ease;
+
+  &:hover {
+    background-color: $dark-blue;
+  }
 }
 

@@ -2,6 +2,7 @@
 @import '../../styles/breakpoints';
 
 .container {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,6 +20,7 @@
   max-width: 315px;
   padding: 25px;
   padding-bottom: 8px;
+  animation: subir .4s ease;
 
   h3 {
     font-size: 18px;
@@ -35,5 +37,15 @@
   .buttons {
     margin-top: 16px;
     text-align: right;
+  }
+}
+
+@keyframes subir {
+  from {
+    top: 60%;
+  }
+  
+  to {
+    top: 50%;
   }
 }

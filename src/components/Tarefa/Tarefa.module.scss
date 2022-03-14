@@ -24,7 +24,8 @@
   .taskStatus {
     padding: 8px 12px;
     background-color: $white;
-    width: 140px;
+    width: 100%;
+    max-width: 140px;
     border-radius: 5px;
     font-weight: 500;
     font-size: 14px;
@@ -34,6 +35,11 @@
     justify-content: center;
     margin-top: 24px;
     cursor: pointer;
+    transition: .4s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
 
     svg {
       margin-right: 4px;

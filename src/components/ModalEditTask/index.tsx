@@ -15,7 +15,9 @@ const ModalEditTask = ({fecharModal}: Props) => {
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string
   ) => {
-    setAlignment(newAlignment);
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
   };
 
   return (

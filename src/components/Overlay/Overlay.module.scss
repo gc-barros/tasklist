@@ -11,6 +11,17 @@
     position: fixed;
     top: 0;
     left: 0;
+    animation: aparecer .4s;
   }
 
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

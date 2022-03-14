@@ -30,7 +30,7 @@ const Tarefa = () => {
       )}
       <li className={styles.taskBox}>
         <span className={styles.taskName}>Nome</span>
-        <span className={styles.taskDescription}>Descrição de tarefa</span>
+        <span className={styles.taskDescription}>Descrição da tarefa</span>
         <div
           className={styles.taskStatus}
           onClick={() => {

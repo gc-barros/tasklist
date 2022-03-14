@@ -1,111 +1,117 @@
 @import './variaveis';
 @import './breakpoints';
 
-.container {
-  display: flex;
-
-  @media screen and (max-width: $mobile) {
-    flex-direction: column;
-  }
-}
-
 .main {
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   flex: 1;
   display: flex;
-  justify-content: space-between;
+  flex-direction: row-reverse;
+  justify-content: space-around;
   align-items: center;
   position: relative;
-  padding: 24px 16px;
+  padding: 0px 16px;
+
+  @media screen and (max-width: $tablet) {
+    padding: 40px 16px 80px 16px;
+  }
 
   @media screen and (max-width: $mobile) {
+    padding-top: 0;
     min-height: auto;
+    flex-direction: column-reverse;
   }
 }
 
-.tasksContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 583px;
-  margin: auto;
-
-  @media screen and (max-width: $mobile) {
-    max-width: none;
-  }
-}
-
-.searchInput {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  display: block;
-  border: none;
-  padding: 16px;
-  width: 100%;
-  height: 52px;
-  max-width: 583px;
-  display: flex;
-  align-items: center;
-
-  @media screen and (max-width: $mobile) {
-    max-width: none;
+.imageContainer {
+  max-width: 200px;
+  text-align: center;
+  transform: translateY(64px);
+  
+  @media screen and (max-width: $tablet) {
+    width: 50%;
+    transform: translateY(32px);
   }
 
-  input {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: 18px;
+  img {
     width: 100%;
-    margin-left: 8px;
   }
 }
 
-.title {
-  font-size: 30px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  text-align: left;
-  width: 100%;
-  max-width: 583px;
-
-  @media screen and (max-width: $mobile) {
-    max-width: none;
+.lottie {
+  max-width: 400px;
+  
+  @media screen and (max-width: $tablet) {
+    max-width: 320px;
   }
 }
 
-.tasksList {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 583px;
-  gap: 21px;
-
-  @media screen and (max-width: $mobile) {
-    max-width: none;
-  }
-}
-
-.buttonNewTask {
+.footer {
+  height: 80px;
   background-color: $blue;
   color: $white;
-  border-radius: 10px;
-  padding: 15px;
-  font-size: 18px;
-  font-weight: 500;
-  border: none;
+  text-align: center;
   display: flex;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  margin-top: 32px;
-  align-self: flex-end;
-  transition: .4s ease;
+  justify-content: center;
+  flex-direction: column;
+}
 
-  &:hover {
-    background-color: $dark-blue;
+.form {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  gap: 16px;
+  padding: 40px 24px;
+  border-radius: 16px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  .intro {
+    margin-bottom: 8px;
+
+    span {
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 16px;
+    }
+    
+    h1 {
+      text-align: left;
+      margin: 4px 0 8px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      
+      @media screen and (max-width: $mobile) {
+        font-size: 18px;
+      }
+    }
+  
+    p {
+      margin: 0;
+      line-height: 140%;
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 14px;
+    }
+  }
+
+  & > button {
+    background-color: $blue;
+    height: 48px;
   }
 }
 
+.ilustras {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  @media screen and (max-width: $tablet) {
+    transform: translateY(32px);
+  }
+}

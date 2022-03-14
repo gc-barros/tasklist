@@ -1,4 +1,4 @@
-import styles from "./Tarefa.module.scss";
+import styles from "./Task.module.scss";
 import {
   MdCheck,
   MdOutlineAccessTime,
@@ -10,7 +10,7 @@ import { IconButton, MenuItem, Menu } from "@mui/material";
 import { useState } from "react";
 import ModalEditTask from "../ModalEditTask";
 
-const Tarefa = () => {
+const Task = () => {
   const [status, setStatus] = useState("Concluída");
   const [showModalEdit, setShowModalEdit] = useState(false);
 
@@ -92,4 +92,4 @@ const Tarefa = () => {
   );
 };
 
-export default Tarefa;
+export default Task;

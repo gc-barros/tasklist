@@ -4,10 +4,25 @@ import { MdInfo, MdOutlineMenu } from "react-icons/md";
 import { Avatar } from "@mui/material";
 import { useState } from 'react';
 import Overlay from '../Overlay';
+import { useRouter } from 'next/router';
 
 const LateralMenu = () => {
 
   const [showMenu, setShowMenu] = useState(false);
+  const router = useRouter();
+  const { name, lastName, role } = router.query;
+
+  let nameF = "Nome", lastNameF = "Sobrenome", roleF = "Função";
+
+  if (
+    name  &&
+    lastName &&
+    role
+  ) {
+    nameF = decodeURIComponent(name.toString());
+    lastNameF = decodeURIComponent(lastName.toString());
+    roleF = decodeURIComponent(role.toString());
+  }
 
   function handleShowMenu() {
     setShowMenu(!showMenu);
@@ -28,10 +43,10 @@ const LateralMenu = () => {
         id="lateralMenu"
       >
         <div className={styles.userInfo}>
-          <Avatar sx={{ bgcolor: "#FFF", color: "#00F" }}>GB</Avatar>
+          <Avatar sx={{ bgcolor: "#FFF", color: "#00F" }}>{nameF[0].toUpperCase() + lastNameF[0].toUpperCase()}</Avatar>
           <div className={styles.userDados}>
-            <span>Nome</span>
-            <span>Função</span>
+            <span>{`${nameF} ${lastNameF}`}</span>
+            <span>{roleF}</span>
           </div>
         </div>
         <nav className={styles.navegacao}>

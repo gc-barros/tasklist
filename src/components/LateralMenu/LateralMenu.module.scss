@@ -51,6 +51,10 @@
   font-weight: 300;
   gap: 4px;
 
+  & > span {
+    text-transform: capitalize;
+  }
+
   & > span:first-child {
     font-weight: 500;
   }

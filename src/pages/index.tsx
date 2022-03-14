@@ -6,9 +6,16 @@ import tasklistAnimation from "../../public/assets/lottie/tasklist.json";
 import Image from "next/image";
 import logo from "../../public/assets/img/logo.png";
 import { Button, TextField } from "@mui/material";
-import {MdChecklist} from 'react-icons/md'
+import { MdChecklist } from "react-icons/md";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [role, setRole] = useState("");
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -21,7 +28,20 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <form className={styles.form}>
+        <form
+          className={styles.form}
+          onSubmit={(e) => {
+            e.preventDefault();
+            router.push(
+              `/tasklist?name=${encodeURIComponent(
+                name.toLowerCase()
+              )}&lastName=${encodeURIComponent(
+                lastName.toLowerCase()
+              )}&role=${encodeURIComponent(role.toLowerCase())}`
+            );
+            console.log(name, lastName, role);
+          }}
+        >
           <div className={styles.intro}>
             <span>Bem-vindo(a) à</span>
             <h1>
@@ -34,18 +54,27 @@ const Home: NextPage = () => {
             label="Nome"
             variant="outlined"
             fullWidth
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <TextField
             id="filled-basic"
             label="Sobrenome"
             variant="outlined"
             fullWidth
+            required
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
           <TextField
             id="filled-basic"
             label="Cargo"
             variant="outlined"
             fullWidth
+            required
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
           />
           <Button type="submit" variant="contained" fullWidth size="large">
             Entrar
@@ -67,7 +96,14 @@ const Home: NextPage = () => {
       <footer className={styles.footer}>
         <span>
           Mady with 🧡 by{" "}
-          <a href="https://www.barrosdev.com.br/" target="_blank" rel="noreferrer">Gabriel Barros</a>.
+          <a
+            href="https://www.barrosdev.com.br/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Gabriel Barros
+          </a>
+          .
         </span>
       </footer>
     </div>

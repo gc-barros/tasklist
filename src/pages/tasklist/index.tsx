@@ -6,6 +6,7 @@ import { MdSearch, MdAdd } from "react-icons/md";
 import Task from "../../components/Task";
 import { useState } from "react";
 import ModalCreateTask from "../../components/ModalCreateTask";
+import { useRouter } from "next/router";
 
 const Tasklist: NextPage = () => {
   const [showModalCreate, setShowModalCreate] = useState(false);

@@ -1,0 +1,39 @@
+@import '../../styles/variaveis';
+@import '../../styles/breakpoints';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  background-color: $white;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 315px;
+  padding: 25px;
+  padding-bottom: 8px;
+
+  h3 {
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 24px;
+  }
+
+  .input {
+    margin-top: 24px;
+  }
+
+  .buttons {
+    margin-top: 16px;
+    text-align: right;
+  }
+}

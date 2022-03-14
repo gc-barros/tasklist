@@ -4,8 +4,11 @@ import LateralMenu from "../components/LateralMenu";
 import styles from "../styles/Home.module.scss";
 import { MdSearch, MdAdd } from "react-icons/md";
 import Tarefa from "../components/Tarefa";
+import { useState } from "react";
+import ModalCreateTask from "../components/ModalCreateTask";
 
 const Home: NextPage = () => {
+  const [showModalCreate, setShowModalCreate] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -15,6 +18,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {showModalCreate && (
+        <ModalCreateTask fecharModal={() => setShowModalCreate(false)} />
+      )}
       <LateralMenu />
 
       <main className={styles.main}>
@@ -28,11 +34,9 @@ const Home: NextPage = () => {
 
           <ul className={styles.tasksList}>
             <Tarefa />
-  
-
           </ul>
 
-          <button className={styles.buttonNewTask}>
+          <button className={styles.buttonNewTask} onClick={() => setShowModalCreate(true)}>
             <MdAdd size={24} />
             Nova tarefa
           </button>

@@ -43,23 +43,6 @@
   }
 }
 
-.overlay {
-  display: none;
-  
-  &.overlay__ativo {
-    display: block;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px); 
-    z-index: 2;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-
-}
-
 .userInfo {
   display: flex;
   gap: 15px;

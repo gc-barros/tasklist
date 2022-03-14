@@ -2,7 +2,7 @@
 @import './breakpoints';
 
 .main {
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 56px);
   flex: 1;
   display: flex;
   flex-direction: row-reverse;
@@ -10,6 +10,9 @@
   align-items: center;
   position: relative;
   padding: 0px 16px;
+  background-image: url("../../public/assets/img/Ellipse\ 1.svg");
+  background-repeat: no-repeat;
+  background-position: center left calc(50vw - 50px);
 
   @media screen and (max-width: $tablet) {
     padding: 40px 16px 80px 16px;
@@ -19,17 +22,18 @@
     padding-top: 0;
     min-height: auto;
     flex-direction: column-reverse;
+    background-position: center left calc(50vw + 20px);
+
   }
 }
 
 .imageContainer {
   max-width: 200px;
   text-align: center;
-  transform: translateY(64px);
+  transform: translateY(32px);
   
   @media screen and (max-width: $tablet) {
     width: 50%;
-    transform: translateY(32px);
   }
 
   img {
@@ -46,7 +50,7 @@
 }
 
 .footer {
-  height: 80px;
+  height: 56px;
   background-color: $blue;
   color: $white;
   text-align: center;
@@ -54,6 +58,14 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  a {
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .form {
@@ -63,10 +75,11 @@
   flex-direction: column;
   width: 100%;
   max-width: 400px;
-  gap: 16px;
+  gap: 24px;
   padding: 40px 24px;
   border-radius: 16px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background-color: $white;
 
   .intro {
     margin-bottom: 8px;
@@ -100,8 +113,12 @@
   }
 
   & > button {
-    background-color: $blue;
+    background-color: #ED6E56;
     height: 48px;
+
+    &:hover {
+      background-color: #ED6E56;
+    }
   }
 }
 
@@ -110,8 +127,5 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-
-  @media screen and (max-width: $tablet) {
-    transform: translateY(32px);
-  }
+  transform: translateY(24px);
 }

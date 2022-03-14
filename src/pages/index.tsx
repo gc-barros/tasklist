@@ -25,8 +25,9 @@ const Home: NextPage = () => {
           <div className={styles.intro}>
             <span>Bem-vindo(a) à</span>
             <h1>
-              Lista de Tarefas <MdChecklist size={32} color="#0047FF" />
+              Lista de Tarefas <MdChecklist size={32} color="#ED6E56" />
             </h1>
+            <span>Entre com seus dados:</span>
           </div>
           <TextField
             id="filled-basic"
@@ -64,7 +65,10 @@ const Home: NextPage = () => {
         </div>
       </main>
       <footer className={styles.footer}>
-        <span>Desenvolvido por mim</span>
+        <span>
+          Mady with 🧡 by{" "}
+          <a href="https://www.barrosdev.com.br/" target="_blank" rel="noreferrer">Gabriel Barros</a>.
+        </span>
       </footer>
     </div>
   );

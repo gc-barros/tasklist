@@ -43,7 +43,6 @@ const ModalCreateTask = ({fecharModal, addTask}: Props) => {
           multiline
           rows={2}
           fullWidth
-          required
           className={styles.input}
           helperText={`${1024 - taskDesc.length} caracteres restantes`}
           value={taskDesc}

@@ -39,6 +39,9 @@ const Tasklist: NextPage = ({ result }: any) => {
     setMyTasks((previousList) =>
       previousList.map((task) => {
         if (task.guid === taskUpdated.guid) {
+          if (!taskUpdated.description) {
+            taskUpdated.description = "Sem detalhes.";
+          }
           return taskUpdated;
         }
         return task;
@@ -79,6 +82,9 @@ const Tasklist: NextPage = ({ result }: any) => {
     setMyTasks((previousList) =>
       previousList.map((task) => {
         if (task.guid === changedTask.guid) {
+          if (!changedTask.description) {
+            changedTask.description = "Sem detalhes.";
+          }
           return changedTask;
         }
         return task;
@@ -127,9 +133,8 @@ const Tasklist: NextPage = ({ result }: any) => {
 
           <div className={styles.titleBlock}>
             <h1 className={styles.title}>Tarefas</h1>
-            {
-              filteredList.length !== 0 ?
-              (<Button
+            {filteredList.length !== 0 ? (
+              <Button
                 variant="text"
                 color="error"
                 startIcon={<MdDelete />}
@@ -137,8 +142,10 @@ const Tasklist: NextPage = ({ result }: any) => {
                 title="Excluir todas as tarefas"
               >
                 <span className={styles.buttonText}>Limpar tarefas</span>
-              </Button>) : ""
-            }
+              </Button>
+            ) : (
+              ""
+            )}
           </div>
 
           <ul className={styles.tasksList}>
@@ -150,7 +157,7 @@ const Tasklist: NextPage = ({ result }: any) => {
                   autoplay={true}
                   className={styles.lottie}
                 />
-                <span>Nenhuma tarefa encontrada...</span> 
+                <span>Nenhuma tarefa encontrada...</span>
               </div>
             ) : (
               filteredList.map((task) => (

@@ -12,8 +12,8 @@ type Props = {
 
 const ModalEditTask = ({fecharModal, editTask, task}: Props) => {
 
-  const [taskName, setTaskName] = useState<string>(task.title || "Untitled");
-  const [taskDesc, setTaskDesc] = useState<string>(task.description || "✍");
+  const [taskName, setTaskName] = useState<string>(task.title || "Minha tarefa");
+  const [taskDesc, setTaskDesc] = useState<string>(task.description || "Sem detalhes.");
   const [taskSituation, setTaskSituation] = useState<"uncompleted" | "completed">(
     task.situation || "uncompleted"
   );
@@ -64,10 +64,14 @@ const ModalEditTask = ({fecharModal, editTask, task}: Props) => {
           multiline
           rows={2}
           fullWidth
-          required
           className={styles.input}
           helperText={`${1024 - taskDesc.length} caracteres restantes`}
           value={taskDesc}
+          onClick={() => {
+            if (taskDesc === "Sem detalhes.") {
+              setTaskDesc("")
+            }
+          }}
           onChange={(e) => {
             if (e.target.value.length <= 1024 && e.target.value !== " ") {
               setTaskDesc(e.target.value);

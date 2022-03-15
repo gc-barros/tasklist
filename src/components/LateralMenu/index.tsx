@@ -64,7 +64,12 @@ const LateralMenu = () => {
               </div>
               Tarefas
             </li>
-            <li className={styles.item}>
+            <li
+              className={styles.item}
+              onClick={() =>
+                window.open("https://www.wlssistemas.com.br/", "_blank")
+              }
+            >
               <div className={styles.iconContainer}>
                 <MdInfo color="#FFF" size="28" />
               </div>

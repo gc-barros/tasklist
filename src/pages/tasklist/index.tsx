@@ -2,12 +2,13 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import LateralMenu from "../../components/LateralMenu";
 import styles from "./Tasklist.module.scss";
-import { MdSearch, MdAdd } from "react-icons/md";
+import { MdSearch, MdAdd, MdDelete } from "react-icons/md";
 import Task from "../../components/Task";
 import { useEffect, useState } from "react";
 import ModalCreateTask from "../../components/ModalCreateTask";
 import ITask from "../../types/task";
 import api from "../../services/api";
+import { Button } from "@mui/material";
 
 const Tasklist: NextPage = ({ result }: any) => {
   const [showModalCreate, setShowModalCreate] = useState(false);
@@ -44,7 +45,7 @@ const Tasklist: NextPage = ({ result }: any) => {
     api
       .put("/api/tasks", taskUpdated)
       .then((response) => console.log(response))
-      .catch((error) => console.error("Algo deu errado: ", error))
+      .catch((error) => console.error("Algo deu errado: ", error));
   }
 
   function deleteTask(id: string) {
@@ -55,11 +56,18 @@ const Tasklist: NextPage = ({ result }: any) => {
       .delete(`/api/tasks/${id}`)
       .then((response) => console.log(response))
       .catch((error) => console.error("Algo deu errado: ", error));
-    
+  }
+
+  function clearTaskList() {
+    myTasks.forEach((task) => {
+      deleteTask(task.guid);
+    });
+
+    setMyTasks([]);
   }
 
   function completeTask(targetTask: ITask) {
-    const changedTask = {...targetTask}
+    const changedTask = { ...targetTask };
 
     changedTask.situation === "uncompleted"
       ? (changedTask.situation = "completed")
@@ -77,8 +85,8 @@ const Tasklist: NextPage = ({ result }: any) => {
     api
       .put("/api/tasks", changedTask)
       .then((response) => console.log(response))
-      .catch((error) => console.error("Algo deu errado: ", error))
-      
+      .catch((error) => console.error("Algo deu errado: ", error));
+
     // Patch não funcionou
     // api.patch(`/api/tasks/${id}`).then((response) => console.log(response));
   }
@@ -133,7 +141,17 @@ const Tasklist: NextPage = ({ result }: any) => {
             />
           </div>
 
-          <h1 className={styles.title}>Tarefas</h1>
+          <div className={styles.titleBlock}>
+            <h1 className={styles.title}>Tarefas</h1>
+            <Button
+              variant="text"
+              color="error"
+              startIcon={<MdDelete />}
+              onClick={() => clearTaskList()}
+            >
+              <span className={styles.buttonText}>Limpar tarefas</span>
+            </Button>
+          </div>
 
           <ul className={styles.tasksList}>
             {filteredList.map((task) => (
@@ -169,9 +187,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         result: data,
       },
     };
-
-  } catch(e) {
-    console.error(e)
+  } catch (e) {
+    console.error(e);
   }
 
   return {

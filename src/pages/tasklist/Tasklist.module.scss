@@ -78,6 +78,41 @@
   }
 }
 
+.titleBlock {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  button {
+    white-space: nowrap;
+    max-width: 156px;
+    min-width: 156px;
+    display: flex;
+    align-items: center;
+    transform: translateY(1px);
+
+    @media screen and (max-width: 190px) {
+      min-width: none;
+      white-space: normal;
+    }
+    
+    .buttonText {
+      transform: translateY(1px);
+    }
+  }
+
+  @media screen and (max-width: 310px) {
+    flex-direction: column;
+    margin-bottom: 25px;
+    align-items: flex-start;
+  
+    h1 {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
 .tasksList {
   display: flex;
   flex-direction: column;

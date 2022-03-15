@@ -14,12 +14,20 @@
   .taskName {
     font-weight: 700;
     font-size: 18px;
+    
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 
   .taskDescription {
     font-weight: 400;
     font-size: 18px;
     margin-top: 8px;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 
   .taskStatus {

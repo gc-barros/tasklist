@@ -9,6 +9,8 @@ import ModalCreateTask from "../../components/ModalCreateTask";
 import ITask from "../../types/task";
 import api from "../../services/api";
 import { Button } from "@mui/material";
+import Lottie from "lottie-react";
+import sleepAnimation from "../../../public/assets/lottie/sleeping.json"
 
 const Tasklist: NextPage = ({ result }: any) => {
   const [showModalCreate, setShowModalCreate] = useState(false);
@@ -27,9 +29,9 @@ const Tasklist: NextPage = ({ result }: any) => {
     api
       .post("/api/tasks", { title: name, description: description })
       .then((response) => {
-        console.log(response.data)
-        setMyTasks((previousList) => [...previousList, response.data])}
-      )
+        console.log(response.data);
+        setMyTasks((previousList) => [...previousList, response.data]);
+      })
       .catch((error) => console.error("Algo deu errado: ", error));
   }
 
@@ -130,27 +132,42 @@ const Tasklist: NextPage = ({ result }: any) => {
 
           <div className={styles.titleBlock}>
             <h1 className={styles.title}>Tarefas</h1>
-            <Button
-              variant="text"
-              color="error"
-              startIcon={<MdDelete />}
-              onClick={() => clearTaskList()}
-              title="Excluir todas as tarefas"
-            >
-              <span className={styles.buttonText}>Limpar tarefas</span>
-            </Button>
+            {
+              filteredList.length !== 0 ?
+              (<Button
+                variant="text"
+                color="error"
+                startIcon={<MdDelete />}
+                onClick={() => clearTaskList()}
+                title="Excluir todas as tarefas"
+              >
+                <span className={styles.buttonText}>Limpar tarefas</span>
+              </Button>) : ""
+            }
           </div>
 
           <ul className={styles.tasksList}>
-            {filteredList.map((task) => (
-              <Task
-                task={task}
-                key={task.guid}
-                deleteTask={deleteTask}
-                editTask={editTask}
-                completeTask={completeTask}
-              />
-            ))}
+            {filteredList.length === 0 ? (
+              <div className={styles.noTasks}>
+                <Lottie
+                  animationData={sleepAnimation}
+                  loop={true}
+                  autoplay={true}
+                  className={styles.lottie}
+                />
+                <span>Nenhuma tarefa encontrada...</span> 
+              </div>
+            ) : (
+              filteredList.map((task) => (
+                <Task
+                  task={task}
+                  key={task.guid}
+                  deleteTask={deleteTask}
+                  editTask={editTask}
+                  completeTask={completeTask}
+                />
+              ))
+            )}
           </ul>
 
           <button

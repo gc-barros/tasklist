@@ -156,3 +156,17 @@
   }
 }
 
+.noTasks {
+  text-align: center;
+  padding: 20px;
+
+  span {
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  svg {
+    max-width: 160px;
+  }
+}

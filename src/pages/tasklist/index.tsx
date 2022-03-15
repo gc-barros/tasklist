@@ -9,36 +9,86 @@ import ModalCreateTask from "../../components/ModalCreateTask";
 import ITask from "../../types/task";
 import api from "../../services/api";
 
-const Tasklist: NextPage = ({result}: any) => {
+const Tasklist: NextPage = ({ result }: any) => {
   const [showModalCreate, setShowModalCreate] = useState(false);
   const [myTasks, setMyTasks] = useState<ITask[]>(result || []);
   const [filteredList, setFilteredList] = useState(myTasks);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   function filterTasks(busca: string) {
-    const newFilter = myTasks.filter(task => task.title.toLowerCase().includes(busca.toLowerCase()));
+    const newFilter = myTasks.filter((task) =>
+      task.title.toLowerCase().includes(busca.toLowerCase())
+    );
     setFilteredList(newFilter);
   }
 
   function addTask(name: string, description: string) {
-    api.post("/api/tasks", { title: name, description: description })
-    .then(response => setMyTasks(previousList => [...previousList, response.data]))
-    .catch(err => console.error("Erro: ", err));
+    api
+      .post("/api/tasks", { title: name, description: description })
+      .then((response) =>
+        setMyTasks((previousList) => [...previousList, response.data])
+      )
+      .catch((error) => console.error("Algo deu errado: ", error));
+  }
+
+  function editTask(taskUpdated: ITask) {
+    setMyTasks((previousList) =>
+      previousList.map((task) => {
+        if (task.guid === taskUpdated.guid) {
+          return taskUpdated;
+        }
+        return task;
+      })
+    );
+
+    api
+      .put("/api/tasks", taskUpdated)
+      .then((response) => console.log(response))
+      .catch((error) => console.error("Algo deu errado: ", error))
   }
 
   function deleteTask(id: string) {
     setMyTasks((previousList) =>
       previousList.filter((task) => task.guid !== id)
     );
-    api.delete(`/api/tasks/${id}`).then((response) => console.log(response));
+    api
+      .delete(`/api/tasks/${id}`)
+      .then((response) => console.log(response))
+      .catch((error) => console.error("Algo deu errado: ", error));
+    
+  }
+
+  function completeTask(targetTask: ITask) {
+    const changedTask = {...targetTask}
+
+    changedTask.situation === "uncompleted"
+      ? (changedTask.situation = "completed")
+      : (changedTask.situation = "uncompleted");
+
+    setMyTasks((previousList) =>
+      previousList.map((task) => {
+        if (task.guid === changedTask.guid) {
+          return changedTask;
+        }
+        return task;
+      })
+    );
+
+    api
+      .put("/api/tasks", changedTask)
+      .then((response) => console.log(response))
+      .catch((error) => console.error("Algo deu errado: ", error))
+      
+    // Patch não funcionou
+    // api.patch(`/api/tasks/${id}`).then((response) => console.log(response));
   }
 
   useEffect(() => {
     setFilteredList(myTasks);
-    setSearch('');
-  }, [myTasks])
+    setSearch("");
+  }, [myTasks]);
 
-  /*
+  /* Se remover o SSR:
   useEffect(() => {
     api
       .get("/api/tasks")
@@ -48,7 +98,7 @@ const Tasklist: NextPage = ({result}: any) => {
     console.log(result);
   }, [setMyTasks]);
   */
-  
+
   return (
     <div className={styles.container}>
       <Head>
@@ -61,7 +111,10 @@ const Tasklist: NextPage = ({result}: any) => {
       </Head>
 
       {showModalCreate && (
-        <ModalCreateTask fecharModal={() => setShowModalCreate(false)} addTask={addTask} />
+        <ModalCreateTask
+          fecharModal={() => setShowModalCreate(false)}
+          addTask={addTask}
+        />
       )}
       <LateralMenu />
 
@@ -69,17 +122,28 @@ const Tasklist: NextPage = ({result}: any) => {
         <section className={styles.tasksContainer}>
           <div className={styles.searchInput}>
             <MdSearch size="28" />
-            <input type="text" placeholder="Procurar tarefas" value={search} onChange={(e) => {
-              setSearch(e.target.value)
-              filterTasks(e.target.value);
-            }}/>
+            <input
+              type="text"
+              placeholder="Procurar tarefas"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                filterTasks(e.target.value);
+              }}
+            />
           </div>
 
           <h1 className={styles.title}>Tarefas</h1>
 
           <ul className={styles.tasksList}>
             {filteredList.map((task) => (
-              <Task task={task} key={task.guid} deleteTask={deleteTask} />
+              <Task
+                task={task}
+                key={task.guid}
+                deleteTask={deleteTask}
+                editTask={editTask}
+                completeTask={completeTask}
+              />
             ))}
           </ul>
 
@@ -97,13 +161,22 @@ const Tasklist: NextPage = ({result}: any) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    const response = await api.get("/api/tasks");
+    let data = response.data;
+    return {
+      props: {
+        result: data,
+      },
+    };
 
-  const response = await api.get("/api/tasks");
-  let data = response.data;
+  } catch(e) {
+    console.error(e)
+  }
 
   return {
     props: {
-      result: data,
+      result: [],
     },
   };
 };

@@ -9,6 +9,7 @@
   color: $white;
   border-radius: 10px;
   position: relative;
+  transition: .4s ease-out;
 
   .taskName {
     font-weight: 700;
@@ -34,7 +35,12 @@
     align-items: center;
     justify-content: center;
     margin-top: 24px;
-    transition: .4s ease;
+    transition: .4s ease-out;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
 
     svg {
       margin-right: 4px;
@@ -46,6 +52,14 @@
     right: 12px;
     top: 12px;
     color: $white;
+  }
+
+  &.completed {
+    background-color: rgba(0, 71, 255, 0.64);
+
+    .taskName, .taskDescription {
+      text-decoration: line-through;
+    }
   }
 }
 

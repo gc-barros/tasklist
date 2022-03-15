@@ -14,9 +14,11 @@ import ITask from "../../types/task";
 type Props = {
   task: ITask;
   deleteTask: (id: string) => void;
+  completeTask: (task: ITask) => void;
+  editTask: (task: ITask) => void;
 }
 
-const Task = ({task, deleteTask}: Props) => {
+const Task = ({task, deleteTask, editTask, completeTask}: Props) => {
   const [showModalEdit, setShowModalEdit] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -31,12 +33,12 @@ const Task = ({task, deleteTask}: Props) => {
   return (
     <>
       {showModalEdit && (
-        <ModalEditTask fecharModal={() => setShowModalEdit(false)} />
+        <ModalEditTask fecharModal={() => setShowModalEdit(false)} editTask={editTask} task={task} />
       )}
-      <li className={styles.taskBox}>
+      <li className={`${styles.taskBox} ${task.situation === "completed" && styles.completed}`}>
         <span className={styles.taskName}>{task.title}</span>
         <span className={styles.taskDescription}>{task.description}</span>
-        <div className={styles.taskStatus}>
+        <div className={styles.taskStatus} onClick={() => completeTask(task)}>
           {task.situation === "completed" ? (
             <MdCheck size={20} />
           ) : (

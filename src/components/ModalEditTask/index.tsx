@@ -1,36 +1,54 @@
 import { Button, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react";
+import ITask from "../../types/task";
 import Overlay from "../Overlay";
 import styles from "./ModalEditTask.module.scss";
 
 type Props = {
   fecharModal: () => void;
+  editTask: (task: ITask) => void;
+  task: ITask;
 }
 
-const ModalEditTask = ({fecharModal}: Props) => {
+const ModalEditTask = ({fecharModal, editTask, task}: Props) => {
 
-  const [alignment, setAlignment] = useState("Em progresso");
+  const [taskName, setTaskName] = useState<string>(task.title || "Sem título");
+  const [taskDesc, setTaskDesc] = useState<string>(task.description || "Sem descrição");
+
+  const [taskSituation, setTaskSituation] = useState<"uncompleted" | "completed">(
+    task.situation || "uncompleted"
+  );
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newAlignment: string
+    newAlignment: "uncompleted" | "completed"
   ) => {
     if (newAlignment !== null) {
-      setAlignment(newAlignment);
+      setTaskSituation(newAlignment);
     }
   };
 
   return (
     <div className={styles.container}>
       <Overlay showOverlay={true} onClick={() => fecharModal()} />
-      <form className={styles.box}>
+      <form className={styles.box} onSubmit={(e) => {
+        e.preventDefault();
+        editTask({
+          guid: task.guid,
+          refId: task.refId,
+          title: taskName,
+          description: taskDesc,
+          situation: taskSituation,
+        });
+        fecharModal();
+      }}>
         <h3>Editar tarefa</h3>
         <TextField
           label="Nome da tarefa"
           variant="outlined"
           fullWidth
-          error
-          helperText="Campo inválido."
+          value={taskName}
+          onChange={(e) => setTaskName(e.target.value)}
         />
         <TextField
           label="Descrição da tarefa"
@@ -39,17 +57,19 @@ const ModalEditTask = ({fecharModal}: Props) => {
           rows={2}
           fullWidth
           className={styles.input}
+          value={taskDesc}
+          onChange={(e) => setTaskDesc(e.target.value)}
         />
         <ToggleButtonGroup
-          value={alignment}
+          value={taskSituation}
           exclusive
           onChange={handleChange}
           fullWidth
           size="small"
           color="standard"
         >
-          <ToggleButton value="Em progresso">Em progresso</ToggleButton>
-          <ToggleButton value="Concluída">Concluída</ToggleButton>
+          <ToggleButton value="uncompleted">Em progresso</ToggleButton>
+          <ToggleButton value="completed">Concluída</ToggleButton>
         </ToggleButtonGroup>
         <div className={styles.buttons}>
           <Button variant="text" onClick={() => fecharModal()}>

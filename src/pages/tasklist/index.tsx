@@ -100,11 +100,6 @@ const Tasklist: NextPage = ({ result }: any) => {
     <div className={styles.container}>
       <Head>
         <title>Lista de Tarefas | WLS Soluções</title>
-        <meta
-          name="description"
-          content="Lista de tarefas da WLS Soluções, simplificando a gestão do seu negócio."
-        />
-        <link rel="icon" href="/assets/img/favicon.png" />
       </Head>
 
       {showModalCreate && (

@@ -30,10 +30,12 @@
   align-items: center;
   width: 100%;
   max-width: 583px;
-  margin: auto;
+  margin: 100px auto auto auto;
+  padding-bottom: 40px;
 
   @media screen and (max-width: $mobile) {
     max-width: none;
+    margin-top: auto;
   }
 }
 

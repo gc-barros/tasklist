@@ -1,4 +1,4 @@
-import styles from './lateralMenu.module.scss';
+import styles from './LateralMenu.module.scss';
 import Image from "next/image";
 import { MdInfo, MdLogout, MdOutlineMenu } from "react-icons/md";
 import { Avatar } from "@mui/material";

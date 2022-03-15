@@ -12,9 +12,8 @@ type Props = {
 
 const ModalEditTask = ({fecharModal, editTask, task}: Props) => {
 
-  const [taskName, setTaskName] = useState<string>(task.title || "Sem título");
-  const [taskDesc, setTaskDesc] = useState<string>(task.description || "Sem descrição");
-
+  const [taskName, setTaskName] = useState<string>(task.title || "Untitled");
+  const [taskDesc, setTaskDesc] = useState<string>(task.description || "✍");
   const [taskSituation, setTaskSituation] = useState<"uncompleted" | "completed">(
     task.situation || "uncompleted"
   );
@@ -31,24 +30,33 @@ const ModalEditTask = ({fecharModal, editTask, task}: Props) => {
   return (
     <div className={styles.container}>
       <Overlay showOverlay={true} onClick={() => fecharModal()} />
-      <form className={styles.box} onSubmit={(e) => {
-        e.preventDefault();
-        editTask({
-          guid: task.guid,
-          refId: task.refId,
-          title: taskName,
-          description: taskDesc,
-          situation: taskSituation,
-        });
-        fecharModal();
-      }}>
+      <form
+        className={styles.box}
+        onSubmit={(e) => {
+          e.preventDefault();
+          editTask({
+            guid: task.guid,
+            refId: task.refId,
+            title: taskName,
+            description: taskDesc,
+            situation: taskSituation,
+          });
+          fecharModal();
+        }}
+      >
         <h3>Editar tarefa</h3>
         <TextField
           label="Nome da tarefa"
           variant="outlined"
           fullWidth
+          required
+          helperText={`${100 - taskName.length} caracteres restantes`}
           value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 100 && e.target.value !== " ") {
+              setTaskName(e.target.value);
+            }
+          }}
         />
         <TextField
           label="Descrição da tarefa"
@@ -56,9 +64,15 @@ const ModalEditTask = ({fecharModal, editTask, task}: Props) => {
           multiline
           rows={2}
           fullWidth
+          required
           className={styles.input}
+          helperText={`${1024 - taskDesc.length} caracteres restantes`}
           value={taskDesc}
-          onChange={(e) => setTaskDesc(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 1024 && e.target.value !== " ") {
+              setTaskDesc(e.target.value);
+            }
+          }}
         />
         <ToggleButtonGroup
           value={taskSituation}

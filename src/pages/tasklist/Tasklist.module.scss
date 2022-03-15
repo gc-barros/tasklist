@@ -17,9 +17,19 @@
   align-items: center;
   position: relative;
   padding: 24px 16px;
+  animation: aparecer 1.5s ease;
 
   @media screen and (max-width: $mobile) {
     min-height: auto;
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

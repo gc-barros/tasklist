@@ -9,24 +9,33 @@ type Props = {
 };
 
 const ModalCreateTask = ({fecharModal, addTask}: Props) => {
-  const [taskName, setTaskName] = useState('');
-  const [taskDesc, setTaskDesc] = useState('');
+  const [taskName, setTaskName] = useState("");
+  const [taskDesc, setTaskDesc] = useState("");
 
   return (
     <div className={styles.container}>
       <Overlay showOverlay={true} onClick={() => fecharModal()} />
-      <form className={styles.box} onSubmit={(e) => {
-        e.preventDefault();
-        addTask(taskName, taskDesc);
-        fecharModal();
-      }}>
+      <form
+        className={styles.box}
+        onSubmit={(e) => {
+          e.preventDefault();
+          addTask(taskName, taskDesc);
+          fecharModal();
+        }}
+      >
         <h3>Criar tarefa</h3>
         <TextField
           label="Nome da tarefa"
           variant="outlined"
           fullWidth
+          required
+          helperText={`${100 - taskName.length} caracteres restantes`}
           value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 100 && e.target.value !== " ") {
+              setTaskName(e.target.value);
+            }
+          }}
         />
         <TextField
           label="Descrição da tarefa"
@@ -34,9 +43,15 @@ const ModalCreateTask = ({fecharModal, addTask}: Props) => {
           multiline
           rows={2}
           fullWidth
+          required
           className={styles.input}
+          helperText={`${1024 - taskDesc.length} caracteres restantes`}
           value={taskDesc}
-          onChange={(e) => setTaskDesc(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 1024 && e.target.value !== " ") {
+              setTaskDesc(e.target.value);
+            }
+          }}
         />
         <div className={styles.buttons}>
           <Button variant="text" onClick={() => fecharModal()}>

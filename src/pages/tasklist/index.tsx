@@ -26,8 +26,9 @@ const Tasklist: NextPage = ({ result }: any) => {
   function addTask(name: string, description: string) {
     api
       .post("/api/tasks", { title: name, description: description })
-      .then((response) =>
-        setMyTasks((previousList) => [...previousList, response.data])
+      .then((response) => {
+        console.log(response.data)
+        setMyTasks((previousList) => [...previousList, response.data])}
       )
       .catch((error) => console.error("Algo deu errado: ", error));
   }
@@ -86,26 +87,12 @@ const Tasklist: NextPage = ({ result }: any) => {
       .put("/api/tasks", changedTask)
       .then((response) => console.log(response))
       .catch((error) => console.error("Algo deu errado: ", error));
-
-    // Patch não funcionou
-    // api.patch(`/api/tasks/${id}`).then((response) => console.log(response));
   }
 
   useEffect(() => {
     setFilteredList(myTasks);
     setSearch("");
   }, [myTasks]);
-
-  /* Se remover o SSR:
-  useEffect(() => {
-    api
-      .get("/api/tasks")
-      .then((response) => setMyTasks(response.data))
-      .catch((err) => console.error("Erro: ", err));
-    
-    console.log(result);
-  }, [setMyTasks]);
-  */
 
   return (
     <div className={styles.container}>
@@ -148,6 +135,7 @@ const Tasklist: NextPage = ({ result }: any) => {
               color="error"
               startIcon={<MdDelete />}
               onClick={() => clearTaskList()}
+              title="Excluir todas as tarefas"
             >
               <span className={styles.buttonText}>Limpar tarefas</span>
             </Button>

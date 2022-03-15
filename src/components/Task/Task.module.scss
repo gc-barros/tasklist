@@ -44,6 +44,8 @@
     justify-content: center;
     margin-top: 24px;
     transition: .4s ease-out;
+    position: static;
+    border: none;
     cursor: pointer;
 
     &:hover {
@@ -52,6 +54,7 @@
 
     svg {
       margin-right: 4px;
+      margin-bottom: 1px;
     }
   }
 
@@ -68,6 +71,20 @@
     .taskName, .taskDescription {
       text-decoration: line-through;
     }
+  }
+
+  animation: surgir 1.2s ease;
+}
+
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 

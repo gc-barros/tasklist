@@ -3,6 +3,7 @@
 
 .hamburgerMenu {
   display: none;
+  color: inherit;
 
   @media screen and (max-width: $mobile) {
     display: block;

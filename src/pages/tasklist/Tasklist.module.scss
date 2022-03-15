@@ -51,7 +51,6 @@
 
 .searchInput {
   background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
   display: block;
   border: none;
   padding: 16px;
@@ -60,18 +59,26 @@
   max-width: 583px;
   display: flex;
   align-items: center;
+  border-radius: 10px;
 
   @media screen and (max-width: $mobile) {
     max-width: none;
   }
-
+  
   input {
+    color: inherit;
     background-color: transparent;
     border: none;
     outline: none;
     font-size: 18px;
     width: 100%;
     margin-left: 8px;
+    font-weight: 300;
+
+    &::placeholder {
+      color: inherit;
+      font-weight: 300;
+    }
   }
 }
 
@@ -161,7 +168,8 @@
   padding: 20px;
 
   span {
-    color: rgba(0, 0, 0, 0.3);
+    color: inherit;
+    opacity: 0.4;
     font-size: 20px;
     font-weight: 500;
   }

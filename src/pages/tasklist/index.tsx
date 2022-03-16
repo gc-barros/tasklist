@@ -65,11 +65,17 @@ const Tasklist: NextPage = ({ result }: any) => {
   }
 
   function clearTaskList() {
-    myTasks.forEach((task) => {
-      deleteTask(task.guid);
-    });
+    api
+      .get("/api/tasks")
+      .then((response) => {
+        const result = response.data;
+        result.forEach((task: ITask) => {
+          deleteTask(task.guid);
+        });
 
-    setMyTasks([]);
+        setMyTasks([]);
+      })
+      .catch((error) => console.error("Algo deu errado: ", error));
   }
 
   function completeTask(targetTask: ITask) {

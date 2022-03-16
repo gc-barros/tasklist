@@ -36,8 +36,8 @@ const Task = ({task, deleteTask, editTask, completeTask}: Props) => {
         <ModalEditTask fecharModal={() => setShowModalEdit(false)} editTask={editTask} task={task} />
       )}
       <li className={`${styles.taskBox} ${task.situation === "completed" && styles.completed}`}>
-        <span className={styles.taskName}>{task.title}</span>
-        <span className={styles.taskDescription}>{task.description}</span>
+        <div className={styles.taskName}>{task.title}</div>
+        <div className={styles.taskDescription}>{task.description}</div>
         <button className={styles.taskStatus} onClick={() => completeTask(task)} title="Alterar status da tarefa.">
           {task.situation === "completed" ? (
             <MdCheck size={20} />

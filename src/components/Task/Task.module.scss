@@ -10,10 +10,12 @@
   border-radius: 10px;
   position: relative;
   transition: .4s ease-out;
-
+  
   .taskName {
+    padding-right: 24px;
     font-weight: 700;
     font-size: 18px;
+    line-break: anywhere;
     
     &::first-letter {
       text-transform: uppercase;
@@ -24,6 +26,7 @@
     font-weight: 400;
     font-size: 18px;
     margin-top: 8px;
+    line-break: anywhere;
 
     &::first-letter {
       text-transform: uppercase;

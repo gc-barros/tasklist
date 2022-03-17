@@ -65,6 +65,8 @@ const Tasklist: NextPage = ({ result }: any) => {
   }
 
   function clearTaskList() {
+    setMyTasks([]);
+    
     api
       .get("/api/tasks")
       .then((response) => {
@@ -73,7 +75,6 @@ const Tasklist: NextPage = ({ result }: any) => {
           deleteTask(task.guid);
         });
 
-        setMyTasks([]);
       })
       .catch((error) => console.error("Algo deu errado: ", error));
   }
